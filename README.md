@@ -23,12 +23,24 @@ The whole app ships as a single Docker container on port 8000.
 
 ## Quick start
 
+Requires Docker. Then:
+
 ```bash
-cp .env.example .env        # add OPENROUTER_API_KEY
-docker build -t finally .
-docker run -v finally-data:/app/db -p 8000:8000 --env-file .env finally
-# open http://localhost:8000
+cp .env.example .env        # add your OPENROUTER_API_KEY
+
+# macOS / Linux
+bash scripts/start_mac.sh           # build (if needed) and run
+bash scripts/start_mac.sh --build   # force rebuild
+bash scripts/stop_mac.sh            # stop (keeps SQLite volume)
+
+# Windows
+powershell -File scripts\start_windows.ps1
+powershell -File scripts\stop_windows.ps1
 ```
+
+Then open http://localhost:8000. Health check: `curl http://localhost:8000/api/health`.
+
+The SQLite database persists in the `finally-data` Docker volume across restarts.
 
 ## Environment
 

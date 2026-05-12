@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: finally:test
+    environment:
+      LLM_MOCK: "true"
+      MASSIVE_API_KEY: ""
+      OPENROUTER_API_KEY: "test-key-not-used"
+      DB_PATH: /app/db/finally.db
+    ports:
+      - "8000:8000"
+    tmpfs:
+      - /app/db
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8000/api/health"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+      start_period: 10s
+
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.49.1-jammy
+    depends_on:
+      app:
+        condition: service_healthy
+    working_dir: /work
+    environment:
+      E2E_BASE_URL: "http://app:8000"
+      CI: "true"
+    volumes:
+      - ./:/work
+      - playwright-cache:/root/.cache/ms-playwright
+    command: >
+      bash -c "npm ci && npx playwright test"
+
+volumes:
+  playwright-cache:

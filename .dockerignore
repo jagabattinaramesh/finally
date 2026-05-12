@@ -1,0 +1,45 @@
+# VCS
+.git
+.github
+.gitignore
+.gitattributes
+
+# OS
+.DS_Store
+
+# Node / frontend
+frontend/node_modules
+frontend/.next
+frontend/out
+frontend/coverage
+frontend/.vitest-cache
+
+# Python / backend
+backend/.venv
+backend/__pycache__
+backend/**/__pycache__
+backend/.pytest_cache
+backend/.ruff_cache
+backend/.mypy_cache
+
+# Project runtime
+db/*.db
+db/*.db-journal
+db/*.db-wal
+db/*.db-shm
+
+# Local env / secrets
+.env
+.env.*
+!.env.example
+
+# Test artifacts
+test/node_modules
+test/test-results
+test/playwright-report
+
+# Editor / misc
+*.log
+*.swp
+.idea
+.vscode
