@@ -1,5 +1,6 @@
 {
   "enabledPlugins": {
-    "independent-reviewer@ram-tools": true
+    "independent-reviewer@ram-tools": true,
+    "playwright@claude-plugins-official": true
   }
 }
